@@ -84,26 +84,31 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
       : THEME.glass.gradientColors.secondary;
 
   return (
-    <GlassCard
-      gradientColors={gradientColors}
-      style={StyleSheet.flatten([styles.button, style])}
+    <Pressable
+      onPress={onPress}
+      disabled={disabled || loading}
+      style={({ pressed }) => [
+        styles.button,
+        style,
+        pressed && styles.buttonPressed,
+      ]}
+      testID="glass-button"
     >
-      <Pressable
-        onPress={onPress}
-        disabled={disabled || loading}
-        style={({ pressed }) => [
-          styles.buttonContent,
-          pressed && styles.buttonPressed,
-        ]}
-        testID="glass-button"
+      <GlassCard
+        gradientColors={gradientColors}
+        style={styles.buttonCard}
       >
         {loading ? (
-          <ActivityIndicator color={THEME.colors.text.primary} size="small" />
+          <View style={styles.buttonContent}>
+            <ActivityIndicator color={THEME.colors.text.primary} size="small" />
+          </View>
         ) : (
-          <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+          <View style={styles.buttonContent}>
+            <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+          </View>
         )}
-      </Pressable>
-    </GlassCard>
+      </GlassCard>
+    </Pressable>
   );
 };
 
@@ -113,6 +118,11 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 48,
+    overflow: "hidden",
+    borderRadius: THEME.borderRadius.md,
+  },
+  buttonCard: {
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -121,9 +131,11 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
+    padding: THEME.spacing.md,
   },
   buttonPressed: {
-    opacity: 0.7,
+    opacity: 0.6,
+    transform: [{ scale: 0.98 }],
   },
   buttonText: {
     color: THEME.colors.text.primary,
