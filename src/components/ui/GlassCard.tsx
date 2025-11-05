@@ -20,6 +20,7 @@ interface GlassCardProps {
   borderRadius?: number;
   style?: ViewStyle;
   gradientColors?: readonly string[];
+  noPadding?: boolean;
 }
 
 export const GlassCard: React.FC<GlassCardProps> = ({
@@ -28,6 +29,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   borderRadius = THEME.borderRadius.md,
   gradientColors = THEME.glass.gradientColors.card,
   style,
+  noPadding = false,
 }) => {
   return (
     <View
@@ -53,7 +55,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         }}
       />
 
-      <View style={styles.contentContainer}>{children}</View>
+      <View style={noPadding ? undefined : styles.contentContainer}>{children}</View>
     </View>
   );
 };
@@ -97,6 +99,7 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
       <GlassCard
         gradientColors={gradientColors}
         style={styles.buttonCard}
+        noPadding
       >
         {loading ? (
           <View style={styles.buttonContent}>

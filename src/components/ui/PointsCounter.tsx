@@ -1,19 +1,19 @@
 // PointsCounter component - Animated points display
-import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
-import { GlassCard } from './GlassCard';
-import { THEME } from '../../constants/theme';
+import React, { useEffect, useRef } from "react";
+import { View, Text, StyleSheet, Animated, ViewStyle } from "react-native";
+import { GlassCard } from "./GlassCard";
+import { THEME } from "../../constants/theme";
 
 interface PointsCounterProps {
   points: number;
   label?: string;
   animated?: boolean;
-  style?: any;
+  style?: ViewStyle;
 }
 
 export const PointsCounter: React.FC<PointsCounterProps> = ({
   points,
-  label = 'Points Earned',
+  label = "Points Earned",
   animated = true,
   style,
 }) => {
@@ -40,12 +40,10 @@ export const PointsCounter: React.FC<PointsCounterProps> = ({
   }, [points, animated, scaleAnim]);
 
   return (
-    <GlassCard style={[styles.container, style]}>
+    <GlassCard style={StyleSheet.flatten([styles.container, style])}>
       <Text style={styles.label}>{label}</Text>
       <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-        <Text style={styles.points}>
-          {points}
-        </Text>
+        <Text style={styles.points}>{points}</Text>
       </Animated.View>
       <View style={styles.badge}>
         <Text style={styles.badgeText}>🎵</Text>
@@ -56,7 +54,7 @@ export const PointsCounter: React.FC<PointsCounterProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: THEME.spacing.lg,
   },
   label: {
@@ -66,7 +64,7 @@ const styles = StyleSheet.create({
   },
   points: {
     fontSize: 48,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: THEME.colors.accent,
   },
   badge: {
@@ -75,8 +73,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: THEME.colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   badgeText: {
     fontSize: 24,
