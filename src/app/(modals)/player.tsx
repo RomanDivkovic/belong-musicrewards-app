@@ -4,7 +4,7 @@ import {
   View, 
   Text, 
   StyleSheet, 
-  TouchableOpacity,
+  Pressable,
   SafeAreaView,
   Alert
 } from 'react-native';
@@ -91,13 +91,14 @@ export default function PlayerModal() {
           <Text style={styles.progressLabel}>Listening Progress</Text>
           
           {/* Progress Bar */}
-          <TouchableOpacity 
+          <Pressable 
             style={styles.progressTrack}
             onPress={(event) => {
               const { locationX, width } = event.nativeEvent as any;
               const percentage = (locationX / width) * 100;
               handleSeek(percentage);
             }}
+            testID="progress-bar"
           >
             <View style={styles.progressBackground}>
               <View 
@@ -107,7 +108,7 @@ export default function PlayerModal() {
                 ]} 
               />
             </View>
-          </TouchableOpacity>
+          </Pressable>
 
           {/* Time Display */}
           <View style={styles.timeContainer}>

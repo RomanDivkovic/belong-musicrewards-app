@@ -3,7 +3,7 @@ import React from 'react';
 import { 
   View, 
   Text,
-  TouchableOpacity,
+  Pressable,
   ActivityIndicator,
   ViewStyle, 
   TextStyle,
@@ -87,18 +87,21 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
       gradientColors={gradientColors}
       style={StyleSheet.flatten([styles.button, style])}
     >
-      <TouchableOpacity
+      <Pressable
         onPress={onPress}
         disabled={disabled || loading}
-        style={styles.buttonContent}
-        activeOpacity={0.7}
+        style={({ pressed }) => [
+          styles.buttonContent,
+          pressed && styles.buttonPressed
+        ]}
+        testID="glass-button"
       >
         {loading ? (
           <ActivityIndicator color={THEME.colors.text.primary} size="small" />
         ) : (
           <Text style={[styles.buttonText, textStyle]}>{title}</Text>
         )}
-      </TouchableOpacity>
+      </Pressable>
     </GlassCard>
   );
 };
@@ -117,6 +120,9 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  buttonPressed: {
+    opacity: 0.7,
   },
   buttonText: {
     color: THEME.colors.text.primary,
