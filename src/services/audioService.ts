@@ -1,5 +1,8 @@
 // Audio service - TrackPlayer setup and configuration
-import TrackPlayer, { Capability, AppKilledPlaybackBehavior } from 'react-native-track-player';
+import TrackPlayer, {
+  Capability,
+  AppKilledPlaybackBehavior,
+} from "react-native-track-player";
 
 // TrackPlayer service setup - call this in your App.tsx or _layout.tsx
 export const setupTrackPlayer = async (): Promise<void> => {
@@ -12,33 +15,24 @@ export const setupTrackPlayer = async (): Promise<void> => {
     // Configure capabilities
     await TrackPlayer.updateOptions({
       // Configure which control center / notification controls are shown
-      capabilities: [
-        Capability.Play,
-        Capability.Pause,
-        Capability.SeekTo,
-      ],
+      capabilities: [Capability.Play, Capability.Pause, Capability.SeekTo],
 
       // Capabilities that will show up when the notification is in the compact form on Android
-      compactCapabilities: [
-        Capability.Play,
-        Capability.Pause,
-      ],
+      compactCapabilities: [Capability.Play, Capability.Pause],
 
       // Configure behavior when app is killed
       android: {
-        appKilledPlaybackBehavior: AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+        appKilledPlaybackBehavior:
+          AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
       },
 
       // Configure notification
-      notificationCapabilities: [
-        Capability.Play,
-        Capability.Pause,
-      ],
+      notificationCapabilities: [Capability.Play, Capability.Pause],
     });
 
-    console.log('TrackPlayer setup complete');
+    console.log("TrackPlayer setup complete");
   } catch (error) {
-    console.error('TrackPlayer setup error:', error);
+    console.error("TrackPlayer setup error:", error);
     throw error;
   }
 };
@@ -48,7 +42,7 @@ export const resetPlayer = async (): Promise<void> => {
   try {
     await TrackPlayer.reset();
   } catch (error) {
-    console.error('Reset player error:', error);
+    console.error("Reset player error:", error);
   }
 };
 
@@ -71,7 +65,7 @@ export const addTrack = async (track: {
       // artwork: track.artwork,
     });
   } catch (error) {
-    console.error('Add track error:', error);
+    console.error("Add track error:", error);
     throw error;
   }
 };
@@ -81,7 +75,7 @@ export const playTrack = async (): Promise<void> => {
   try {
     await TrackPlayer.play();
   } catch (error) {
-    console.error('Play track error:', error);
+    console.error("Play track error:", error);
     throw error;
   }
 };
@@ -91,7 +85,7 @@ export const pauseTrack = async (): Promise<void> => {
   try {
     await TrackPlayer.pause();
   } catch (error) {
-    console.error('Pause track error:', error);
+    console.error("Pause track error:", error);
     throw error;
   }
 };
@@ -101,7 +95,7 @@ export const seekToPosition = async (seconds: number): Promise<void> => {
   try {
     await TrackPlayer.seekTo(seconds);
   } catch (error) {
-    console.error('Seek error:', error);
+    console.error("Seek error:", error);
     throw error;
   }
 };
@@ -111,7 +105,7 @@ export const getCurrentPosition = async (): Promise<number> => {
   try {
     return await TrackPlayer.getPosition();
   } catch (error) {
-    console.error('Get position error:', error);
+    console.error("Get position error:", error);
     return 0;
   }
 };
@@ -121,22 +115,22 @@ export const getTrackDuration = async (): Promise<number> => {
   try {
     return await TrackPlayer.getDuration();
   } catch (error) {
-    console.error('Get duration error:', error);
+    console.error("Get duration error:", error);
     return 0;
   }
 };
 
 // Handle playback errors
 export const handlePlaybackError = (error: any) => {
-  console.error('Playback error:', error);
-  
+  console.error("Playback error:", error);
+
   // You can add error reporting here
   // Example: report to crash analytics
   // crashlytics().recordError(error);
-  
+
   return {
-    message: error?.message || 'Unknown playback error',
-    code: error?.code || 'UNKNOWN_ERROR',
+    message: error?.message || "Unknown playback error",
+    code: error?.code || "UNKNOWN_ERROR",
   };
 };
 
@@ -145,6 +139,6 @@ export const cleanupTrackPlayer = async (): Promise<void> => {
   try {
     await TrackPlayer.reset();
   } catch (error) {
-    console.error('Cleanup error:', error);
+    console.error("Cleanup error:", error);
   }
 };

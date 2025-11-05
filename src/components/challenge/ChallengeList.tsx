@@ -1,9 +1,9 @@
 // ChallengeList component - List of all challenges
-import React from 'react';
-import { FlatList, View, Text, StyleSheet, RefreshControl } from 'react-native';
-import { ChallengeCard } from './ChallengeCard';
-import { THEME } from '../../constants/theme';
-import type { MusicChallenge } from '../../types';
+import React from "react";
+import { FlatList, View, Text, StyleSheet, RefreshControl } from "react-native";
+import { ChallengeCard } from "./ChallengeCard";
+import { THEME } from "../../constants/theme";
+import type { MusicChallenge } from "../../types";
 
 interface ChallengeListProps {
   challenges: MusicChallenge[];
@@ -67,19 +67,19 @@ const styles = StyleSheet.create({
     paddingBottom: THEME.spacing.xl,
   },
   emptyContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: THEME.spacing.xxl,
   },
   emptyTitle: {
     fontSize: THEME.fonts.sizes.xl,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: THEME.colors.text.primary,
     marginBottom: THEME.spacing.sm,
   },
   emptyText: {
     fontSize: THEME.fonts.sizes.md,
     color: THEME.colors.text.secondary,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
