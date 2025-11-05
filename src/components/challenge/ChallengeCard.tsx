@@ -1,9 +1,9 @@
 // ChallengeCard component - Individual challenge display
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { GlassCard, GlassButton } from '../ui/GlassCard';
-import { THEME } from '../../constants/theme';
-import type { MusicChallenge } from '../../types';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { GlassCard, GlassButton } from "../ui/GlassCard";
+import { THEME } from "../../constants/theme";
+import type { MusicChallenge } from "../../types";
 
 interface ChallengeCardProps {
   challenge: MusicChallenge;
@@ -21,30 +21,34 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({
   const formatDuration = (seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return THEME.colors.secondary;
-      case 'medium': return THEME.colors.accent;
-      case 'hard': return THEME.colors.primary;
-      default: return THEME.colors.text.secondary;
+      case "easy":
+        return THEME.colors.secondary;
+      case "medium":
+        return THEME.colors.accent;
+      case "hard":
+        return THEME.colors.primary;
+      default:
+        return THEME.colors.text.secondary;
     }
   };
 
   const getButtonTitle = () => {
-    if (challenge.completed) return 'Completed ✓';
-    if (isCurrentTrack && isPlaying) return 'Playing...';
-    if (isCurrentTrack && !isPlaying) return 'Resume';
-    return 'Play Challenge';
+    if (challenge.completed) return "Completed ✓";
+    if (isCurrentTrack && isPlaying) return "Playing...";
+    if (isCurrentTrack && !isPlaying) return "Resume";
+    return "Play Challenge";
   };
 
   return (
     <GlassCard
       style={StyleSheet.flatten([
         styles.card,
-        isCurrentTrack && styles.currentTrackCard
+        isCurrentTrack && styles.currentTrackCard,
       ])}
       gradientColors={
         isCurrentTrack
@@ -57,10 +61,12 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({
           <Text style={styles.title}>{challenge.title}</Text>
           <Text style={styles.artist}>{challenge.artist}</Text>
         </View>
-        <View style={StyleSheet.flatten([
-          styles.difficultyBadge,
-          { backgroundColor: getDifficultyColor(challenge.difficulty) }
-        ])}>
+        <View
+          style={StyleSheet.flatten([
+            styles.difficultyBadge,
+            { backgroundColor: getDifficultyColor(challenge.difficulty) },
+          ])}
+        >
           <Text style={styles.difficultyText}>
             {challenge.difficulty.toUpperCase()}
           </Text>
@@ -74,17 +80,21 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({
       <View style={styles.infoRow}>
         <View style={styles.infoItem}>
           <Text style={styles.infoLabel}>Duration</Text>
-          <Text style={styles.infoValue}>{formatDuration(challenge.duration)}</Text>
+          <Text style={styles.infoValue}>
+            {formatDuration(challenge.duration)}
+          </Text>
         </View>
         <View style={styles.infoItem}>
           <Text style={styles.infoLabel}>Points</Text>
-          <Text style={[styles.infoValue, { color: THEME.colors.accent }]}> 
+          <Text style={[styles.infoValue, { color: THEME.colors.accent }]}>
             {challenge.points}
           </Text>
         </View>
         <View style={styles.infoItem}>
           <Text style={styles.infoLabel}>Progress</Text>
-          <Text style={styles.infoValue}>{Math.round(challenge.progress)}%</Text>
+          <Text style={styles.infoValue}>
+            {Math.round(challenge.progress)}%
+          </Text>
         </View>
       </View>
 
@@ -94,7 +104,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({
             <View
               style={StyleSheet.flatten([
                 styles.progressFill,
-                { width: `${challenge.progress}%` }
+                { width: `${challenge.progress}%` },
               ])}
             />
           </View>
@@ -104,7 +114,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({
       <GlassButton
         title={getButtonTitle()}
         onPress={() => onPlay(challenge)}
-        variant={isCurrentTrack ? 'primary' : 'secondary'}
+        variant={isCurrentTrack ? "primary" : "secondary"}
         disabled={challenge.completed}
         style={styles.playButton}
       />
@@ -121,9 +131,9 @@ const styles = StyleSheet.create({
     borderColor: THEME.colors.primary,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: THEME.spacing.sm,
   },
   titleSection: {
@@ -132,7 +142,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: THEME.fonts.sizes.lg,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: THEME.colors.text.primary,
     marginBottom: THEME.spacing.xs,
   },
@@ -147,7 +157,7 @@ const styles = StyleSheet.create({
   },
   difficultyText: {
     fontSize: THEME.fonts.sizes.xs,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: THEME.colors.background,
   },
   description: {
@@ -157,12 +167,12 @@ const styles = StyleSheet.create({
     marginBottom: THEME.spacing.md,
   },
   infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: THEME.spacing.md,
   },
   infoItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   infoLabel: {
     fontSize: THEME.fonts.sizes.xs,
@@ -171,7 +181,7 @@ const styles = StyleSheet.create({
   },
   infoValue: {
     fontSize: THEME.fonts.sizes.sm,
-    fontWeight: '600',
+    fontWeight: "600",
     color: THEME.colors.text.primary,
   },
   progressContainer: {
@@ -179,12 +189,12 @@ const styles = StyleSheet.create({
   },
   progressTrack: {
     height: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: 2,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   progressFill: {
-    height: '100%',
+    height: "100%",
     backgroundColor: THEME.colors.accent,
     borderRadius: 2,
   },

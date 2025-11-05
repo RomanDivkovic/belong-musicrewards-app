@@ -1,10 +1,11 @@
 // Root layout for Expo Router
-import { Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
-import TrackPlayer from 'react-native-track-player';
-import { setupTrackPlayer } from '../services/audioService';
-import { THEME } from '../constants/theme';
+import { Stack } from "expo-router";
+import { useEffect, useState } from "react";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import TrackPlayer from "react-native-track-player";
+import { setupTrackPlayer } from "../services/audioService";
+import { THEME } from "../constants/theme";
+import React from "react";
 
 export default function RootLayout() {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -15,16 +16,18 @@ export default function RootLayout() {
     async function initializePlayer() {
       try {
         // Register the playback service first
-        TrackPlayer.registerPlaybackService(() => require('../services/playbackService'));
-        
+        TrackPlayer.registerPlaybackService(() =>
+          require("../services/playbackService")
+        );
+
         // Then initialize TrackPlayer
         await setupTrackPlayer();
-        
+
         if (isMounted) {
           setIsPlayerReady(true);
         }
       } catch (error) {
-        console.error('Failed to setup TrackPlayer:', error);
+        console.error("Failed to setup TrackPlayer:", error);
         // Still set ready to true to show the app
         if (isMounted) {
           setIsPlayerReady(true);
@@ -51,12 +54,12 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen 
-        name="(modals)" 
-        options={{ 
-          presentation: 'modal',
-          headerShown: false 
-        }} 
+      <Stack.Screen
+        name="(modals)"
+        options={{
+          presentation: "modal",
+          headerShown: false,
+        }}
       />
     </Stack>
   );
@@ -65,8 +68,8 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: THEME.colors.background,
   },
   loadingText: {
