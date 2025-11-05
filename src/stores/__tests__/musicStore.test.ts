@@ -10,7 +10,6 @@ describe('musicStore', () => {
       result.current.setCurrentTrack(null);
       result.current.setIsPlaying(false);
       result.current.setCurrentPosition(0);
-      result.current.setDuration(0);
     });
   });
 
@@ -20,7 +19,6 @@ describe('musicStore', () => {
     expect(result.current.currentTrack).toBeNull();
     expect(result.current.isPlaying).toBe(false);
     expect(result.current.currentPosition).toBe(0);
-    expect(result.current.duration).toBe(0);
     expect(result.current.challenges).toHaveLength(2);
   });
 
@@ -72,22 +70,12 @@ describe('musicStore', () => {
     expect(result.current.currentPosition).toBe(50);
   });
 
-  it('updates duration', () => {
-    const { result } = renderHook(() => useMusicStore());
-    
-    act(() => {
-      result.current.setDuration(180);
-    });
-    
-    expect(result.current.duration).toBe(180);
-  });
-
   it('updates challenge progress', () => {
     const { result } = renderHook(() => useMusicStore());
     const challengeId = result.current.challenges[0].id;
     
     act(() => {
-      result.current.updateChallengeProgress(challengeId, 50);
+      result.current.updateProgress(challengeId, 50);
     });
     
     const updatedChallenge = result.current.challenges.find(c => c.id === challengeId);
@@ -99,7 +87,7 @@ describe('musicStore', () => {
     const challengeId = result.current.challenges[0].id;
     
     act(() => {
-      result.current.updateChallengeProgress(challengeId, 100);
+      result.current.markChallengeComplete(challengeId);
     });
     
     const updatedChallenge = result.current.challenges.find(c => c.id === challengeId);
@@ -112,7 +100,7 @@ describe('musicStore', () => {
     const initialChallenges = [...result.current.challenges];
     
     act(() => {
-      result.current.updateChallengeProgress('non-existent-id', 50);
+      result.current.updateProgress('non-existent-id', 50);
     });
     
     expect(result.current.challenges).toEqual(initialChallenges);

@@ -89,7 +89,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({
       </View>
 
       {challenge.progress > 0 && (
-        <View style={styles.progressContainer}>
+        <View style={styles.progressContainer} testID="progress-bar">
           <View style={styles.progressTrack}>
             <View
               style={StyleSheet.flatten([

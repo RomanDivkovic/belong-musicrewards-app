@@ -7,9 +7,9 @@
     "ios": "expo run:ios",
     "start": "expo start",
     "web": "expo start --web",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "EXPO_ROUTER_APP_ROOT=src/app NODE_ENV=test jest",
+    "test:watch": "EXPO_ROUTER_APP_ROOT=src/app NODE_ENV=test jest --watch",
+    "test:coverage": "EXPO_ROUTER_APP_ROOT=src/app NODE_ENV=test jest --coverage"
   },
   "react-native-track-player": {
     "playback-service": "src/services/playbackService.ts"
@@ -38,6 +38,7 @@
     "babel-preset-expo": "^54.0.3",
     "jest": "^29.7.0",
     "jest-expo": "~54.0.5",
+    "react-native-worklets": "^0.5.2",
     "react-test-renderer": "19.1.0",
     "typescript": "~5.9.2"
   }
